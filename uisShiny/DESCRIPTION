@@ -1,0 +1,20 @@
+Package: commodityShiny
+Type: Package
+Title: COmmodity Data Processing Shiny Application
+Version: 0.1.0
+Authors@R: person("Rara", "Soro", email = "raras@spc.int", role = c("aut", "cre"))
+Description: A Shiny application for the downloading and processing of commodity prices.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    shiny,
+    dplyr,
+    tidyr,
+    lubridate,
+    readr,
+    readxl,
+    DT
+Suggests:
+    remotes
+RoxygenNote: 7.3.2
