@@ -5,7 +5,7 @@
 #' @return This function launches a Shiny application.
 #' @export
 
-run_uis_app <- function() {
+run_app <- function() {
   
   app_dir <- system.file("shiny", package = "DFUIS")
   if (app_dir == ""){
