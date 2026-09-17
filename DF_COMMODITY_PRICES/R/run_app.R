@@ -5,9 +5,9 @@
 #' @return This function launches a Shiny application.
 #' @export
 
-run_commodity_app <- function() {
+run_app <- function() {
   
-  app_dir <- system.file("shiny", package = "commodityPricesShiny")
+  app_dir <- system.file("shiny", package = "DFCOMMODITYPRICES")
   if (app_dir == ""){
     stop("App directory not found")
   }

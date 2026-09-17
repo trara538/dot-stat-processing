@@ -1,20 +1,20 @@
-Package: commodityPricesShiny
+Package: DFCOMMODITYPRICES
 Type: Package
-Title: CPI Data Processing Shiny Application
+Title: Commodity Prices Data Processing Shiny Application
 Version: 0.1.0
 Authors@R: person("Rara", "Soro", email = "raras@spc.int", role = c("aut", "cre"))
-Description: A Shiny application for the collection and processing of monthly and annual commodity prices.
+Description: A Shiny application for the collection and processing of annual and monthly global commodity prices
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
     shiny,
     dplyr,
-    tidyr,
-    lubridate,
-    readr,
     readxl,
-    DT
+    readr,
+    DT,
+    tidyr,
+    
 Suggests:
     remotes
 RoxygenNote: 7.3.2
