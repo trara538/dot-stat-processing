@@ -5,7 +5,7 @@
 #' @return This function launches a Shiny application.
 #' @export
 
-run_cpi_app <- function() {
+run_app <- function() {
   
   app_dir <- system.file("shiny", package = "DFCPI")
   if (app_dir == ""){
