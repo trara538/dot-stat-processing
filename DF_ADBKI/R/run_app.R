@@ -5,9 +5,9 @@
 #' @return This function launches a Shiny application.
 #' @export
 
-run_adbki_app <- function() {
+run_app <- function() {
   
-  app_dir <- system.file("shiny", package = "adbkiShiny")
+  app_dir <- system.file("shiny", package = "DFADBKI")
   if (app_dir == ""){
     stop("App directory not found")
   }
