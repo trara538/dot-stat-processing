@@ -1,4 +1,4 @@
-Package: cpiShiny
+Package: DFCPI
 Type: Package
 Title: CPI Data Processing Shiny Application
 Version: 0.1.0
@@ -15,6 +15,7 @@ Imports:
     readr,
     readxl,
     DT
+    
 Suggests:
     remotes
 RoxygenNote: 7.3.2
