@@ -11,7 +11,7 @@ Imports:
     uisapi,
     httr2,
     jsonlite,
-    purr,
+    purrr,
     tibble,
     shiny,
     dplyr,
