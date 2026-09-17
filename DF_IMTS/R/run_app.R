@@ -4,7 +4,7 @@
 #'
 #' @export
 run_app <- function() {
-  app_dir <- system.file("app", package = "imtsShiny")
+  app_dir <- system.file("app", package = "DF_IMTS")
   if (app_dir == "") {
     stop("App directory not found")
   }

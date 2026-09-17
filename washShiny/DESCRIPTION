@@ -9,11 +9,9 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     shiny,
+    rsdmx,
     dplyr,
-    tidyr,
-    lubridate,
     readr,
-    readxl,
     DT
 Suggests:
     remotes
