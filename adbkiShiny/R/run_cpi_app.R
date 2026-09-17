@@ -1,13 +1,13 @@
-#' Run the CPI Shiny Application
+#' Run the ADB Key Indicator Shiny Application
 #'
 #' Launches the CPI data processing Shiny application.
 #'
 #' @return This function launches a Shiny application.
 #' @export
 
-run_wash_app <- function() {
+run_adbki_app <- function() {
   
-  app_dir <- system.file("shiny", package = "washShiny")
+  app_dir <- system.file("shiny", package = "adbkiShiny")
   if (app_dir == ""){
     stop("App directory not found")
   }
