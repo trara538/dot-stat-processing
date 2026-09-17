@@ -1,4 +1,4 @@
-Package: DF_UIS
+Package: DFUIS
 Type: Package
 Title: UIS Data + Metadata Processing Shiny Application
 Version: 0.1.0
