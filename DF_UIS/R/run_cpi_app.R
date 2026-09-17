@@ -7,7 +7,7 @@
 
 run_uis_app <- function() {
   
-  app_dir <- system.file("shiny", package = "DF_UIS")
+  app_dir <- system.file("shiny", package = "DFUIS")
   if (app_dir == ""){
     stop("App directory not found")
   }
