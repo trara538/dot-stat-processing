@@ -32,6 +32,7 @@ repository <- normalizePath(
 # ===============================================================
 
 username <- Sys.getenv("USERNAME")
+year <- format(Sys.Date(), "%Y")
 
 # ===============================================================
 # Countries
@@ -411,7 +412,7 @@ ui <- fluidPage(
       
       strong("Data period"),
       
-      p("2000 to 2026"),
+      p("2000 to ", paste0(year)),
       
       hr(),
       
@@ -670,7 +671,7 @@ server <- function(
                 
                 start_year = 2000,
                 
-                end_year = 2026
+                end_year = as.numeric(paste0(year))
                 
               )
               
