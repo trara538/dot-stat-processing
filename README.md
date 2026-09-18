@@ -1,31 +1,39 @@
 # Pacific Data Hub Data Preparation Packages
 
-A collection of R packages for downloading, processing, transforming, and preparing statistical data for integration into the Pacific Data Hub and related SDMX/.Stat data workflows.
+R packages for downloading, processing, transforming, validating, and preparing statistical data for the **Pacific Data Hub** and related **SDMX/.Stat** data workflows.
 
-This repository contains independent data-processing packages organised by data source or statistical domain. Each package can be installed directly from its subdirectory and used independently.
+The repository contains six independent data-preparation packages. Each package focuses on a specific statistical data source or domain and can be installed independently from GitHub.
 
-## Packages
+## Repository
 
-| Package                                      | Description                                                        |
-| -------------------------------------------- | ------------------------------------------------------------------ |
-| [`DF_ADBKI`](DF_ADBKI)                       | Asian Development Bank Key Indicators data preparation             |
-| [`DF_COMMODITY_PRICES`](DF_COMMODITY_PRICES) | Commodity prices data preparation                                  |
-| [`DF_CPI`](DF_CPI)                           | Consumer Price Index (CPI) data preparation                        |
-| [`DF_IMTS`](DF_IMTS)                         | International Merchandise Trade Statistics (IMTS) data preparation |
-| [`DF_UIS`](DF_UIS)                           | UNESCO Institute for Statistics (UIS) data preparation             |
-| [`DF_WASH`](DF_WASH)                         | Water, Sanitation and Hygiene (WASH) data preparation              |
-
-Each package contains its own `DESCRIPTION`, source code, documentation, and package-specific instructions where applicable.
+[dot-stat-processing on GitHub](https://github.com/trara538/dot-stat-processing?utm_source=chatgpt.com)
 
 ---
 
-## Installation
+## Packages
 
-### Prerequisites
+| Directory                                    | R Package           | Description                                |
+| -------------------------------------------- | ------------------- | ------------------------------------------ |
+| [`DF_ADBKI`](DF_ADBKI)                       | `DFADBKI`           | Asian Development Bank Key Indicators      |
+| [`DF_COMMODITY_PRICES`](DF_COMMODITY_PRICES) | `DFCOMMODITYPRICES` | Commodity Prices                           |
+| [`DF_CPI`](DF_CPI)                           | `DFCPI`             | Consumer Price Index                       |
+| [`DF_IMTS`](DF_IMTS)                         | `DFIMTS`            | International Merchandise Trade Statistics |
+| [`DF_UIS`](DF_UIS)                           | `DFUIS`             | UNESCO Institute for Statistics            |
+| [`DF_WASH`](DF_WASH)                         | `DFWASH`            | Water, Sanitation and Hygiene              |
 
-You need R installed on your computer.
+Each directory is a standalone R package with its own `DESCRIPTION`, `NAMESPACE`, R source code, and package documentation.
 
-It is recommended to use a recent version of R and RStudio or another R development environment.
+---
+
+# Installation
+
+## Prerequisites
+
+You need:
+
+* R
+* RStudio or another R development environment
+* Internet access to GitHub
 
 Install the `remotes` package if it is not already installed:
 
@@ -33,146 +41,161 @@ Install the `remotes` package if it is not already installed:
 install.packages("remotes")
 ```
 
-### Install a package from this repository
-
-Each package can be installed directly from its subdirectory using `remotes::install_github()`.
-
-The root URL which points to the repository is as follows:
-
-```text
-https://github.com/trara538/dot-stat-processing
-```
-
 ---
 
-## Package Installation
+# Install Individual Packages
 
-### ADB Key Indicators
+Packages can be installed directly from the GitHub repository using `remotes::install_github()`.
 
-Install the `DF_ADBKI` package:
+## ADB Key Indicators
+
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing", subdir = "DF_ADBKI")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_ADBKI"
+)
 ```
 
-Load the package:
+### Load
 
 ```r
 library(DFADBKI)
 ```
 
-Package directory:
+### Package
 
 [`DF_ADBKI`](DF_ADBKI)
 
 ---
 
-### Commodity Prices
+## Commodity Prices
 
-Install the `DF_COMMODITY_PRICES` package:
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing", subdir = "DF_COMMODITY_PRICES")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_COMMODITY_PRICES"
+)
 ```
 
-Load the package:
+### Load
 
 ```r
 library(DFCOMMODITYPRICES)
 ```
 
-Package directory:
+### Package
 
 [`DF_COMMODITY_PRICES`](DF_COMMODITY_PRICES)
 
 ---
 
-### Consumer Price Index
+## Consumer Price Index
 
-Install the `DF_CPI` package:
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing", subdir = "DF_CPI")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_CPI"
+)
 ```
 
-Load the package:
+### Load
 
 ```r
 library(DFCPI)
 ```
 
-Package directory:
+### Package
 
 [`DF_CPI`](DF_CPI)
 
 ---
 
-### International Merchandise Trade Statistics
+## International Merchandise Trade Statistics
 
-Install the `DF_IMTS` package:
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing",  subdir = "DF_IMTS")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_IMTS"
+)
 ```
-Load the package:
+
+### Load
 
 ```r
 library(DFIMTS)
 ```
 
-Package directory:
+### Package
 
 [`DF_IMTS`](DF_IMTS)
 
 ---
 
-### UNESCO Institute for Statistics
+## UNESCO Institute for Statistics
 
-Install the `DF_UIS` package:
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing",  subdir = "DF_UIS")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_UIS"
+)
 ```
 
-Load the package:
+### Load
 
 ```r
 library(DFUIS)
 ```
 
-Package directory:
+### Package
 
 [`DF_UIS`](DF_UIS)
 
 ---
 
-### Water, Sanitation and Hygiene
+## Water, Sanitation and Hygiene
 
-Install the `DF_WASH` package:
+### Install
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing",  subdir = "DF_WASH")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_WASH"
+)
 ```
 
-Load the package:
+### Load
 
 ```r
 library(DFWASH)
 ```
 
-Package directory:
+### Package
 
 [`DF_WASH`](DF_WASH)
 
 ---
 
-## Install All Packages
+# Install All Packages
 
-If you need all packages, they can be installed together:
+If you need all six packages, they can be installed with a single R script:
 
 ```r
-install.packages("remotes")
+# Install remotes if required
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
 
+# Package directories
 packages <- c(
   "DF_ADBKI",
   "DF_COMMODITY_PRICES",
@@ -182,12 +205,19 @@ packages <- c(
   "DF_WASH"
 )
 
+# Install all packages
 for (pkg in packages) {
-  remotes::install_github("https://github.com/trara538/dot-stat-processing", subdir = pkg)
+
+  message("Installing ", pkg, "...")
+
+  remotes::install_github(
+    "trara538/dot-stat-processing",
+    subdir = pkg
+  )
 }
 ```
 
-After installation:
+After installation, load the packages:
 
 ```r
 library(DFADBKI)
@@ -200,28 +230,17 @@ library(DFWASH)
 
 ---
 
-## Install a Specific Package
+# Update Packages
 
-If you only need one data source, install only the corresponding package.
-
-For example, to install the UIS package:
-
-```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing",  subdir = "DF_UIS")
-```
-
-This allows users to install only the functionality they require without installing the other data-processing packages.
-
----
-
-## Update Packages
-
-To update a package to the latest version in the repository, run the same installation command again.
+To update an individual package, run its installation command again.
 
 For example:
 
 ```r
-remotes::install_github("https://github.com/trara538/dot-stat-processing",  subdir = "DF_CPI")
+remotes::install_github(
+  "trara538/dot-stat-processing",
+  subdir = "DF_CPI"
+)
 ```
 
 To update all packages:
@@ -237,9 +256,11 @@ packages <- c(
 )
 
 for (pkg in packages) {
-  
+
+  message("Updating ", pkg, "...")
+
   remotes::install_github(
-    "https://github.com/trara538/dot-stat-processing",
+    "trara538/dot-stat-processing",
     subdir = pkg,
     upgrade = "always"
   )
@@ -248,13 +269,14 @@ for (pkg in packages) {
 
 ---
 
-## Repository Structure
-
-The repository is organised as follows:
+# Repository Structure
 
 ```text
-.
+dot-stat-processing/
+│
 ├── README.md
+├── dot-stat-processing.Rproj
+├── .gitignore
 │
 ├── DF_ADBKI/
 │   ├── DESCRIPTION
@@ -301,11 +323,80 @@ The repository is organised as follows:
 
 ---
 
-## Package Documentation
+# Development Installation
 
-Each package has its own directory containing package-specific documentation, dependencies, functions, and usage instructions.
+To work on the packages locally, clone the repository:
 
-See:
+```bash
+git clone https://github.com/trara538/dot-stat-processing.git
+```
+
+Move into the repository:
+
+```bash
+cd dot-stat-processing
+```
+
+A package can then be installed locally.
+
+For example:
+
+```r
+remotes::install_local("DF_CPI")
+```
+
+Or:
+
+```r
+remotes::install_local("./DF_CPI")
+```
+
+---
+
+# Data Processing Workflow
+
+The packages support a common data preparation workflow:
+
+```text
+┌─────────────────────────────┐
+│     External Data Source    │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│       Data Download         │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│     Data Transformation     │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│       Data Validation       │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│     SDMX / .Stat Output     │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│       Pacific Data Hub      │
+└─────────────────────────────┘
+```
+
+Each package contains source-specific processing logic while following the requirements of the downstream statistical data workflow.
+
+---
+
+# Package Documentation
+
+Detailed documentation is available within each package directory.
+
+### Packages
 
 * [`DF_ADBKI`](DF_ADBKI)
 * [`DF_COMMODITY_PRICES`](DF_COMMODITY_PRICES)
@@ -314,103 +405,62 @@ See:
 * [`DF_UIS`](DF_UIS)
 * [`DF_WASH`](DF_WASH)
 
-For detailed instructions, refer to the README or documentation contained within each package.
+Refer to the individual package documentation for package-specific functions, data sources, processing steps, and usage instructions.
 
 ---
 
-## Data Processing Workflow
+# Dependencies
 
-The packages are designed to support a common data preparation workflow:
+Each package manages its R dependencies through its own `DESCRIPTION` file.
 
-```text
-External Data Source
-        │
-        ▼
-   Data Download
-        │
-        ▼
- Data Transformation
-        │
-        ▼
- Data Validation
-        │
-        ▼
- SDMX / .Stat Preparation
-        │
-        ▼
- Pacific Data Hub
+When a package is installed using:
+
+```r
+remotes::install_github()
 ```
 
-The individual packages handle source-specific extraction and transformation requirements while producing data suitable for downstream statistical data workflows.
+its declared dependencies are installed automatically.
 
----
-
-## Dependencies
-
-Each package manages its own R dependencies through its `DESCRIPTION` file.
-
-When installing a package from GitHub, `remotes` will install the package and its declared dependencies.
-
-If you encounter a missing-package error, install the required package using:
+If a dependency is missing, it can be installed manually:
 
 ```r
 install.packages("package_name")
 ```
 
-Package-specific dependencies should be documented in the corresponding package directory.
+Package-specific dependencies should be documented within the relevant package.
 
 ---
 
-## Development Installation
+# Contributing
 
-If you are developing or modifying one of the packages locally, clone the repository:
-
-```bash
-git clone https://github.com/trara538/dot-stat-processing.git
-```
-
-Then open the relevant package directory in RStudio.
-
-For example:
-
-```text
-YOUR_REPOSITORY/
-└── DF_CPI/
-```
-
-The package can then be installed locally using:
-
-```r
-remotes::install_local("DF_CPI")
-```
-
-or, from the repository root:
-
-```r
-remotes::install_local("./DF_CPI")
-```
-
----
-
-## Contributing
-
-Contributions are welcome.
-
-When modifying a package:
+When making changes to a package:
 
 1. Make changes within the relevant package directory.
-2. Update the package documentation where necessary.
+2. Update the package documentation where required.
 3. Test the package before committing changes.
-4. Ensure that changes do not break the other packages.
-5. Commit and push the changes to the repository.
+4. Check that changes do not adversely affect other packages.
+5. Commit the changes.
+6. Push the changes to GitHub.
 
-For package-specific development instructions, refer to the documentation inside the relevant package directory.
+For example, changes to the CPI package should be made within:
+
+```text
+DF_CPI/
+```
+
+while changes to the UIS package should be made within:
+
+```text
+DF_UIS/
+```
 
 ---
 
-## Support
+# Reporting Issues
 
-For questions, issues, or requests related to a specific package, please open an issue in the repository and identify the package concerned.
+If you encounter a problem, please open an issue in the GitHub repository:
+
+[Open an issue on dot-stat-processing](https://github.com/trara538/dot-stat-processing/issues?utm_source=chatgpt.com)
 
 When reporting an issue, include:
 
@@ -419,23 +469,23 @@ When reporting an issue, include:
 * R version
 * Operating system
 * Error message
-* Minimal example that reproduces the problem, where possible
+* Relevant code
+* A minimal reproducible example, where possible
 
 ---
 
-## License
+# License
 
 See the [`LICENSE`](LICENSE) file for licensing information.
 
 ---
 
-## Maintainer
+# Maintainer
 
-This repository is maintained as part of the Pacific Data Hub statistical data preparation workflow.
+This repository is maintained as part of the **Pacific Data Hub statistical data preparation workflow**.
 
-```
+---
 
-A small but important point: **`remotes::install_github(..., subdir = "...")` assumes each of those six directories is a valid standalone R package**, including its own `DESCRIPTION` and package structure. If that is how you've structured them, the installation approach above is appropriate.
+## Repository
 
-If you give me the **actual GitHub repository URL**, I can replace `YOUR_ORGANISATION/YOUR_REPOSITORY` throughout and tailor the README to the exact package names/functions in your repository.
-```
+[https://github.com/trara538/dot-stat-processing](https://github.com/trara538/dot-stat-processing)
