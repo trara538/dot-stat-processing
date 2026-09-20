@@ -21,11 +21,7 @@ library(DT)
 # Working directory
 # ===============================================================
 
-repository <- normalizePath(
-  ".",
-  winslash = "/",
-  mustWork = TRUE
-)
+repository <- normalizePath(".", winslash = "/", mustWork = TRUE)
 
 # ===============================================================
 # Constant declarations
@@ -38,25 +34,7 @@ year <- format(Sys.Date(), "%Y")
 # Countries
 # ===============================================================
 
-country <- c(
-  "COK",
-  "FJI",
-  "FSM",
-  "KIR",
-  "MHL",
-  "NRU",
-  "NIU",
-  "PNG",
-  "PCN",
-  "PLW",
-  "SLB",
-  "TKL",
-  "TON",
-  "TUV",
-  "VUT",
-  "WLF",
-  "WSM"
-)
+country <- c("COK","FJI","FSM","KIR","MHL","NRU","NIU","PNG","PCN","PLW","SLB","TKL","TON","TUV","VUT","WLF","WSM")
 
 # ===============================================================
 # UIS indicators
@@ -164,7 +142,6 @@ indicatorCode <- c(
 # ===============================================================
 
 metadata_function <- function(meta) {
-  
   indicator_list <- indicatorCode
   
   # -------------------------------------------------------------
@@ -179,9 +156,7 @@ metadata_function <- function(meta) {
   # Indicator list
   # -------------------------------------------------------------
   
-  indis <- tibble(
-    indicatorCode = indicator_list
-  )
+  indis <- tibble(indicatorCode = indicator_list)
   
   # -------------------------------------------------------------
   # UIS metadata API
@@ -204,40 +179,16 @@ metadata_function <- function(meta) {
   # Indicator metadata
   # =============================================================
   
-  indicators <- map_dfr(
-    data,
-    function(x) {
-      
+  indicators <- map_dfr(data, function(x) {
       tibble(
-        indicatorCode =
-          x$indicatorCode %||% NA_character_,
-        
-        name =
-          x$name %||% NA_character_,
-        
-        theme =
-          x$theme %||% NA_character_,
-        
-        lastDataUpdate =
-          x$lastDataUpdate %||% NA_character_,
-        
-        lastDataUpdateDescription =
-          x$lastDataUpdateDescription %||% NA_character_,
-        
-        dataAvailability =
-          list(
-            x$dataAvailability %||% list()
-          ),
-        
-        disaggregations =
-          list(
-            x$disaggregations %||% list()
-          ),
-        
-        glossaryTerms =
-          list(
-            x$glossaryTerms %||% list()
-          )
+        indicatorCode = x$indicatorCode %||% NA_character_,
+        name = x$name %||% NA_character_,
+        theme = x$theme %||% NA_character_,
+        lastDataUpdate = x$lastDataUpdate %||% NA_character_,
+        lastDataUpdateDescription = x$lastDataUpdateDescription %||% NA_character_,
+        dataAvailability = list(x$dataAvailability %||% list()),
+        disaggregations = list(x$disaggregations %||% list()),
+        glossaryTerms = list(x$glossaryTerms %||% list())
       )
     }
   )
@@ -246,72 +197,29 @@ metadata_function <- function(meta) {
   # Glossary metadata
   # =============================================================
   
-  glossary_terms <- map_dfr(
-    data,
-    function(x) {
+  glossary_terms <- map_dfr(data, function(x) {
       
-      if (
-        is.null(x$glossaryTerms) ||
-        length(x$glossaryTerms) == 0
-      ) {
+      if (is.null(x$glossaryTerms) || length(x$glossaryTerms) == 0) {
         return(tibble())
       }
       
-      map_dfr(
-        x$glossaryTerms,
-        function(g) {
-          
+      map_dfr(x$glossaryTerms, function(g) {
           tibble(
-            
-            indicatorCode =
-              x$indicatorCode %||% NA_character_,
-            
-            termId =
-              g$termId %||% NA_integer_,
-            
-            termName =
-              g$name %||% NA_character_,
-            
-            language =
-              g$language %||% NA_character_,
-            
-            definition =
-              g$definition %||% NA_character_,
-            
-            definitionSource =
-              g$definitionSource %||% NA_character_,
-            
-            purpose =
-              g$purpose %||% NA_character_,
-            
-            calculationMethod =
-              g$calculationMethod %||% NA_character_,
-            
-            dataRequired =
-              g$dataRequired %||% NA_character_,
-            
-            dataSource =
-              g$dataSource %||% NA_character_,
-            
-            typesOfDisaggregation =
-              g$typesOfDisaggregation %||% NA_character_,
-            
-            interpretation =
-              g$interpretation %||% NA_character_,
-            
-            qualityStandards =
-              g$qualityStandards %||% NA_character_,
-            
-            limitations =
-              g$limitations %||% NA_character_,
-            
-            themes =
-              paste(
-                unlist(
-                  g$themes %||% list()
-                ),
-                collapse = "; "
-              )
+            indicatorCode = x$indicatorCode %||% NA_character_,
+            termId = g$termId %||% NA_integer_,
+            termName = g$name %||% NA_character_,
+            language = g$language %||% NA_character_,
+            definition = g$definition %||% NA_character_,
+            definitionSource = g$definitionSource %||% NA_character_,
+            purpose = g$purpose %||% NA_character_,
+            calculationMethod = g$calculationMethod %||% NA_character_,
+            dataRequired = g$dataRequired %||% NA_character_,
+            dataSource = g$dataSource %||% NA_character_,
+            typesOfDisaggregation = g$typesOfDisaggregation %||% NA_character_,
+            interpretation = g$interpretation %||% NA_character_,
+            qualityStandards =  g$qualityStandards %||% NA_character_,
+            limitations = g$limitations %||% NA_character_,
+            themes = paste(unlist(g$themes %||% list()), collapse = "; ")
           )
         }
       )
@@ -323,33 +231,19 @@ metadata_function <- function(meta) {
   # =============================================================
   
   indicators <- indicators |>
-    select(
-      -c(
-        "dataAvailability",
-        "disaggregations",
-        "glossaryTerms"
-      )
-    )
+    select(-c("dataAvailability", "disaggregations",  "glossaryTerms"))
   
   # =============================================================
   # Merge indicator metadata and glossary metadata
   # =============================================================
   
-  metadata <- merge(
-    indicators,
-    glossary_terms,
-    by = "indicatorCode"
-  )
+  metadata <- merge(indicators, glossary_terms, by = "indicatorCode")
   
   # =============================================================
   # Keep only requested indicators
   # =============================================================
   
-  indicator_metadata <- merge(
-    metadata,
-    indis,
-    by = "indicatorCode"
-  )
+  indicator_metadata <- merge(metadata, indis, by = "indicatorCode")
   
   # =============================================================
   # Final metadata
@@ -366,11 +260,7 @@ metadata_function <- function(meta) {
 # ===============================================================
 
 ui <- fluidPage(
-  
-  titlePanel(
-    "UIS Data and Metadata Processing Application"
-  ),
-  
+  titlePanel("UIS Data and Metadata Processing Application"),
   sidebarLayout(
     
     # ===========================================================
@@ -378,42 +268,20 @@ ui <- fluidPage(
     # ===========================================================
     
     sidebarPanel(
-      
       h4("UIS Data Processing"),
-      
       p(
         "This application downloads UIS education indicators ",
         "for the selected Pacific Island countries."
       ),
-      
       hr(),
-      
       strong("Countries"),
-      
-      p(
-        paste(
-          length(country),
-          "PICTs configured for download."
-        )
-      ),
-      
+      p(paste(length(country), "PICTs configured for download.")),
       hr(),
-      
       strong("Indicators"),
-      
-      p(
-        paste(
-          length(indicatorCode),
-          "UIS indicators configured."
-        )
-      ),
-      
+      p(paste(length(indicatorCode), "UIS indicators configured.")),
       hr(),
-      
       strong("Data period"),
-      
       p("2000 to ", paste0(year)),
-      
       hr(),
       
       actionButton(
@@ -455,12 +323,8 @@ ui <- fluidPage(
       ),
       
       hr(),
-      
       h4("Status"),
-      
-      verbatimTextOutput(
-        "status"
-      )
+      verbatimTextOutput("status")
     ),
     
     # ===========================================================
@@ -468,69 +332,41 @@ ui <- fluidPage(
     # ===========================================================
     
     mainPanel(
-      
       tabsetPanel(
         
         # =======================================================
         # Summary
         # =======================================================
         
-        tabPanel(
-          "Summary",
-          
+        tabPanel("Summary",
           br(),
-          
           h4("Processing Summary"),
-          
-          DTOutput(
-            "summary_table"
-          ),
+          DTOutput("summary_table"),
           
           br(),
-          
           h4("Final UIS Data"),
-          
-          DTOutput(
-            "data_preview"
-          )
+          DTOutput("data_preview")
         ),
         
         # =======================================================
         # UIS Data
         # =======================================================
         
-        tabPanel(
-          "UIS Data",
-          
+        tabPanel("UIS Data",
           br(),
-          
-          h4(
-            "DF_UIS Data"
-          ),
-          
-          DTOutput(
-            "uis_data_table"
-          )
+          h4("DF_UIS Data"),
+          DTOutput("uis_data_table")
         ),
         
         # =======================================================
         # Metadata
         # =======================================================
         
-        tabPanel(
-          "Metadata",
-          
+        tabPanel("Metadata",
           br(),
-          
-          h4(
-            "UIS Indicator Metadata"
-          ),
-          
-          DTOutput(
-            "metadata_table"
-          )
+          h4("UIS Indicator Metadata"),
+          DTOutput("metadata_table")
         )
-        
       )
     )
   )
@@ -541,27 +377,15 @@ ui <- fluidPage(
 # Server
 # ===============================================================
 
-server <- function(
-    input,
-    output,
-    session
-) {
+server <- function(input, output, session){
   
   # =============================================================
   # Reactive objects
   # =============================================================
   
-  data_final <- reactiveVal(
-    data.frame()
-  )
-  
-  metadata_dataframe <- reactiveVal(
-    data.frame()
-  )
-  
-  output_folder <- reactiveVal(
-    NULL
-  )
+  data_final <- reactiveVal(data.frame())
+  metadata_dataframe <- reactiveVal(data.frame())
+  output_folder <- reactiveVal(NULL)
   
   processing_status <- reactiveVal(
     "Waiting for processing to start..."
@@ -572,11 +396,8 @@ server <- function(
   # =============================================================
   
   output$status <- renderText({
-    
     processing_status()
-    
   })
-  
   
   # =============================================================
   # Process button
@@ -606,79 +427,36 @@ server <- function(
       # Read country reference file
       # ========================================================
       
-      country_file <- file.path(
-        repository,
-        "country.csv"
-      )
+      country_file <- file.path(repository, "country.csv")
       
-      if (
-        !file.exists(country_file)
-      ) {
-        
-        showNotification(
-          paste(
-            "Country reference file not found:",
-            country_file
-          ),
-          type = "error",
-          duration = NULL
-        )
-        
-        processing_status(
-          paste(
-            "ERROR: Country reference file not found:",
-            country_file
-          )
-        )
+      if (!file.exists(country_file)) {
+        showNotification(paste("Country reference file not found:", country_file), type = "error", duration = NULL)
+        processing_status(paste("ERROR: Country reference file not found:", country_file))
         
         return()
       }
       
-      countries <- read.csv(
-        country_file,
-        stringsAsFactors = FALSE
-      )
+      countries <- read.csv(country_file, stringsAsFactors = FALSE)
       
       # ========================================================
       # Download UIS data
       # ========================================================
       
-      result <- tryCatch(
-        
-        {
-          
+      result <- tryCatch({
           withProgress(
-            
             message = "Downloading UIS data",
             value = 0,
-            
             {
-              
-              processing_status(
-                "Downloading UIS data from UIS API..."
-              )
-              
-              incProgress(
-                0.2,
-                detail = "Requesting UIS data..."
-              )
-              
+             processing_status("Downloading UIS data from UIS API...")
+              incProgress(0.2, detail = "Requesting UIS data...")
               data <- uis_get(
-                
                 entities = country,
-                
                 indicators = indicatorCode,
-                
                 start_year = 2000,
-                
                 end_year = as.numeric(paste0(year))
-                
               )
               
-              incProgress(
-                0.6,
-                detail = "Processing UIS observations..."
-              )
+              incProgress(0.6, detail = "Processing UIS observations...")
               
               # ================================================
               # Finalise data
@@ -704,90 +482,30 @@ server <- function(
                 ) |>
                 
                 mutate(
-                  INDICATOR =
-                    gsub(
-                      "\\.",
-                      "_",
-                      INDICATOR
-                    ),
-                  
-                  OBS_VALUE =
-                    round(
-                      as.numeric(
-                        OBS_VALUE
-                      ),
-                      2
-                    )
+                  INDICATOR = gsub("\\.", "_", INDICATOR),
+                  OBS_VALUE = round(as.numeric(OBS_VALUE), 2)
                 )
               
               # ================================================
               # Merge country codes
               # ================================================
               
-              data_final_temp <-
-                merge(
-                  data_final_temp,
-                  countries,
-                  by = "COU"
+              data_final_temp <- merge(data_final_temp, countries, by = "COU") |>
+                select(-c("COU", "ctyCur", "Region", "Country", "REF_AREA")
                 ) |>
-                
-                select(
-                  -c(
-                    "COU",
-                    "ctyCur",
-                    "Region",
-                    "Country",
-                    "REF_AREA"
-                  )
-                ) |>
-                
-                select(
-                  DATAFLOW,
-                  FREQ,
-                  TIME_PERIOD,
-                  GEO_PICT,
-                  INDICATOR,
-                  OBS_VALUE,
-                  UNIT_MEASURE,
-                  UNIT_MULT,
-                  OBS_STATUS,
-                  DATA_SOURCE,
-                  OBS_COMMENT
-                )
-              
-              incProgress(
-                0.2,
-                detail = "UIS data processing complete."
-              )
-              
-              data_final(
-                data_final_temp
-              )
+                select(DATAFLOW,FREQ,TIME_PERIOD,GEO_PICT,INDICATOR,OBS_VALUE,UNIT_MEASURE,UNIT_MULT,OBS_STATUS,DATA_SOURCE,OBS_COMMENT)
+        
+              incProgress(0.2, detail = "UIS data processing complete.")
+              data_final(data_final_temp)
             }
           )
-          
           TRUE
-          
         },
         
         error = function(e) {
+          processing_status(paste("UIS data download failed:", conditionMessage(e)))
           
-          processing_status(
-            paste(
-              "UIS data download failed:",
-              conditionMessage(e)
-            )
-          )
-          
-          showNotification(
-            paste(
-              "UIS data download failed:",
-              conditionMessage(e)
-            ),
-            type = "error",
-            duration = NULL
-          )
-          
+          showNotification(paste("UIS data download failed:", conditionMessage(e)), type = "error", duration = NULL)
           FALSE
         }
       )
@@ -805,68 +523,25 @@ server <- function(
       # ========================================================
       
       metadata_result <- tryCatch(
-        
-        {
-          
-          withProgress(
-            
-            message = "Downloading UIS metadata",
-            value = 0,
-            
-            {
-              
-              processing_status(
-                "Downloading UIS indicator metadata..."
-              )
-              
-              incProgress(
-                0.2,
-                detail = "Connecting to UIS metadata API..."
-              )
-              
-              metadata_dataframe_temp <-
-                metadata_function(
-                  indicatorCode
-                )
-              
-              incProgress(
-                0.7,
-                detail = "Processing glossary metadata..."
-              )
-              
-              metadata_dataframe(
-                metadata_dataframe_temp
-              )
-              
-              incProgress(
-                0.1,
-                detail = "Metadata processing complete."
-              )
+         {
+          withProgress(message = "Downloading UIS metadata", value = 0, {
+              processing_status("Downloading UIS indicator metadata...")
+              incProgress(0.2,  detail = "Connecting to UIS metadata API...")
+              metadata_dataframe_temp <-  metadata_function(indicatorCode)
+              incProgress(0.7, detail = "Processing glossary metadata...")
+              metadata_dataframe(metadata_dataframe_temp)
+              incProgress(0.1, detail = "Metadata processing complete.")
             }
           )
-          
           TRUE
-          
         },
         
         error = function(e) {
-          
-          processing_status(
-            paste(
-              "Metadata download failed:",
-              conditionMessage(e)
-            )
-          )
-          
-          showNotification(
-            paste(
-              "Metadata download failed:",
-              conditionMessage(e)
-            ),
+          processing_status(paste("Metadata download failed:", conditionMessage(e)))
+          showNotification(paste("Metadata download failed:", conditionMessage(e)),
             type = "error",
             duration = NULL
           )
-          
           FALSE
         }
       )
@@ -885,77 +560,28 @@ server <- function(
       
       current_time <- Sys.time()
       
-      myYear <- format(
-        current_time,
-        "%Y"
-      )
+      myYear <- format(current_time, "%Y")
+      myMonth <- format(current_time, "%m")
+      myDay <- format(current_time, "%d")
+      myHour <- format(current_time, "%H")
+      myMin <- format(current_time, "%M")
+      mySecond <- format(current_time, "%S")
       
-      myMonth <- format(
-        current_time,
-        "%m"
-      )
+      oneDrivePath <- paste0("C:/Users/", username, "/OneDrive - SPC/DotStat/REFDB/DF_UIS")
       
-      myDay <- format(
-        current_time,
-        "%d"
-      )
+      folderName <- paste0(myYear,  myMonth,  myDay, "_", myHour, myMin, mySecond, "_UIS_data_Update")
+      newFolder <- file.path(oneDrivePath, folderName)
       
-      myHour <- format(
-        current_time,
-        "%H"
-      )
-      
-      myMin <- format(
-        current_time,
-        "%M"
-      )
-      
-      mySecond <- format(
-        current_time,
-        "%S"
-      )
-      
-      oneDrivePath <- paste0(
-        "C:/Users/",
-        username,
-        "/OneDrive - SPC/DotStat/REFDB/DF_UIS"
-      )
-      
-      folderName <- paste0(
-        myYear,
-        myMonth,
-        myDay,
-        "_",
-        myHour,
-        myMin,
-        mySecond,
-        "_UIS_data_Update"
-      )
-      
-      newFolder <- file.path(
-        oneDrivePath,
-        folderName
-      )
-      
-      newFile <- file.path(
-        newFolder,
-        "DF_UIS_data.CSV"
-      )
-      
-      metaFile <- file.path(
-        newFolder,
-        "UIS_metadata.CSV"
-      )
+      newFile <- file.path(newFolder, "DF_UIS_data.CSV")
+      metaFile <- file.path(newFolder, "UIS_metadata.CSV" )
       
       # ========================================================
       # Create folder
       # ========================================================
       
       tryCatch(
-        
         {
-          
-          dir.create(
+        dir.create(
             newFolder,
             recursive = TRUE,
             showWarnings = FALSE
@@ -965,25 +591,14 @@ server <- function(
           # Write UIS data
           # ==============================================
           
-          write.csv(
-            data_final(),
-            newFile,
-            row.names = FALSE
-          )
+          write.csv(data_final(), newFile, row.names = FALSE)
           
           # ==============================================
           # Write metadata
           # ==============================================
           
-          write.csv(
-            metadata_dataframe(),
-            metaFile,
-            row.names = FALSE
-          )
-          
-          output_folder(
-            newFolder
-          )
+          write.csv(metadata_dataframe(), metaFile, row.names = FALSE)
+          output_folder(newFolder)
           
           # ==============================================
           # Final status
@@ -991,67 +606,27 @@ server <- function(
           
           processing_status(
             
-            paste0(
-              
-              "PROCESSING COMPLETE\n\n",
-              
-              "UIS DATA\n",
-              "Rows: ",
-              nrow(data_final()),
-              "\n",
-              "Columns: ",
-              ncol(data_final()),
-              "\n\n",
-              
-              "METADATA\n",
-              "Rows: ",
-              nrow(metadata_dataframe()),
-              "\n",
-              "Columns: ",
-              ncol(metadata_dataframe()),
-              "\n\n",
-              
-              "OUTPUT FOLDER\n",
-              newFolder,
-              "\n\n",
-              
-              "UIS DATA FILE\n",
-              newFile,
-              "\n\n",
-              
-              "METADATA FILE\n",
-              metaFile
-            )
+            paste0("PROCESSING COMPLETE\n\n", "UIS DATA\n", "Rows: ", 
+                   nrow(data_final()), "\n", "Columns: ", ncol(data_final()),"\n\n",
+                    "METADATA\n", "Rows: ",  nrow(metadata_dataframe()), "\n",
+                    "Columns: ", ncol(metadata_dataframe()), "\n\n",
+                    "OUTPUT FOLDER\n", newFolder, "\n\n",
+                    "UIS DATA FILE\n", newFile, "\n\n",
+                    "METADATA FILE\n", metaFile)
           )
           
           showNotification(
-            paste0(
-              "Processing completed successfully. ",
-              nrow(data_final()),
-              " UIS observations and ",
-              nrow(metadata_dataframe()),
-              " metadata records created."
-            ),
+            paste0("Processing completed successfully. ", nrow(data_final()),
+                   " UIS observations and ", nrow(metadata_dataframe()),
+                   " metadata records created."),
             type = "message",
             duration = 10
           )
-          
         },
         
         error = function(e) {
-          
-          processing_status(
-            paste(
-              "ERROR writing output files:",
-              conditionMessage(e)
-            )
-          )
-          
-          showNotification(
-            paste(
-              "Could not write output files:",
-              conditionMessage(e)
-            ),
+          processing_status(paste("ERROR writing output files:", conditionMessage(e)))
+          showNotification(paste("Could not write output files:", conditionMessage(e)),
             type = "error",
             duration = NULL
           )
@@ -1062,19 +637,13 @@ server <- function(
     ignoreInit = TRUE
   )
   
-  
   # =============================================================
   # Summary table
   # =============================================================
   
   output$summary_table <- renderDT({
-    
-    req(
-      nrow(data_final()) > 0
-    )
-    
+    req(nrow(data_final()) > 0)
     summary_data <- data.frame(
-      
       ITEM = c(
         "Countries",
         "Indicators",
@@ -1104,91 +673,58 @@ server <- function(
         dom = "t"
       )
     )
-    
   })
-  
   
   # =============================================================
   # UIS data preview
   # =============================================================
   
   output$data_preview <- renderDT({
-    
-    req(
-      nrow(data_final()) > 0
-    )
-    
+    req(nrow(data_final()) > 0)
     datatable(
-      
-      head(
-        data_final(),
-        100
-      ),
-      
+      head(data_final(), 100),
       rownames = FALSE,
-      
       options = list(
         pageLength = 10,
         scrollX = TRUE
       )
     )
-    
   })
-  
   
   # =============================================================
   # UIS data table
   # =============================================================
   
   output$uis_data_table <- renderDT({
-    
-    req(
-      nrow(data_final()) > 0
-    )
-    
+    req(nrow(data_final()) > 0)
     datatable(
-      
       data_final(),
-      
       rownames = FALSE,
-      
       filter = "top",
-      
       options = list(
         pageLength = 25,
         scrollX = TRUE,
         autoWidth = TRUE
       )
     )
-    
   })
-  
   
   # =============================================================
   # Metadata table
   # =============================================================
   
   output$metadata_table <- renderDT({
-    
-    req(
-      nrow(metadata_dataframe()) > 0
-    )
-    
+    req(nrow(metadata_dataframe()) > 0)
     datatable(
-      
       metadata_dataframe(),
-      
       rownames = FALSE,
-      
       filter = "top",
-      
       options = list(
         pageLength = 25,
         scrollX = TRUE,
         autoWidth = TRUE
       )
     )
-    
   })
   
   
@@ -1197,67 +733,29 @@ server <- function(
   # =============================================================
   
   output$download_data <- downloadHandler(
-    
     filename = function() {
-      
-      paste0(
-        "DF_UIS_data_",
-        format(
-          Sys.Date(),
-          "%Y%m%d"
-        ),
-        ".CSV"
-      )
-      
+      paste0("DF_UIS_data_", format(Sys.Date(), "%Y%m%d"), ".CSV")
     },
     
     content = function(file) {
-      
-      req(
-        nrow(data_final()) > 0
-      )
-      
-      write.csv(
-        data_final(),
-        file,
-        row.names = FALSE
-      )
-      
+      req(nrow(data_final()) > 0)
+      write.csv(data_final(), file, row.names = FALSE)
     }
   )
-  
   
   # =============================================================
   # Download metadata
   # =============================================================
   
   output$download_metadata <- downloadHandler(
-    
     filename = function() {
-      
-      paste0(
-        "UIS_metadata_",
-        format(
-          Sys.Date(),
-          "%Y%m%d"
-        ),
-        ".CSV"
-      )
-      
+      paste0("UIS_metadata_", format(Sys.Date(), "%Y%m%d"), ".CSV")
     },
     
     content = function(file) {
-      
-      req(
-        nrow(metadata_dataframe()) > 0
+      req(nrow(metadata_dataframe()) > 0
       )
-      
-      write.csv(
-        metadata_dataframe(),
-        file,
-        row.names = FALSE
-      )
-      
+      write.csv(metadata_dataframe(), file, row.names = FALSE)
     }
   )
   
@@ -1267,22 +765,11 @@ server <- function(
   # =============================================================
   
   output$download_both <- downloadHandler(
-    
     filename = function() {
-      
-      paste0(
-        "UIS_data_and_metadata_",
-        format(
-          Sys.Date(),
-          "%Y%m%d"
-        ),
-        ".zip"
-      )
-      
+      paste0("UIS_data_and_metadata_", format(Sys.Date(), "%Y%m%d"), ".zip")
     },
     
     content = function(file) {
-      
       req(
         nrow(data_final()) > 0,
         nrow(metadata_dataframe()) > 0
@@ -1290,46 +777,18 @@ server <- function(
       
       temp_dir <- tempdir()
       
-      data_file <- file.path(
-        temp_dir,
-        "DF_UIS_data.CSV"
-      )
+      data_file <- file.path(temp_dir, "DF_UIS_data.CSV")
+      metadata_file <- file.path(temp_dir, "UIS_metadata.CSV")
       
-      metadata_file <- file.path(
-        temp_dir,
-        "UIS_metadata.CSV"
-      )
-      
-      write.csv(
-        data_final(),
-        data_file,
-        row.names = FALSE
-      )
-      
-      write.csv(
-        metadata_dataframe(),
-        metadata_file,
-        row.names = FALSE
-      )
-      
-      utils::zip(
-        zipfile = file,
-        files = c(
-          data_file,
-          metadata_file
-        ),
-        flags = "-j"
-      )
+      write.csv(data_final(), data_file, row.names = FALSE)
+      write.csv(metadata_dataframe(), metadata_file, row.names = FALSE)
+      utils::zip(zipfile = file, files = c(data_file, metadata_file), flags = "-j")
     }
   )
 }
-
 
 # ===============================================================
 # Run application
 # ===============================================================
 
-shinyApp(
-  ui = ui,
-  server = server
-)
+shinyApp(ui = ui, server = server)
